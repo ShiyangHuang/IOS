@@ -1,0 +1,196 @@
+//
+//  XYZMyScene.m
+//  PhysicsBodiesCreature
+//
+//  Created by Zhang Boxuan on 14-2-18.
+//  Copyright (c) 2014年 Zhang Boxuan. All rights reserved.
+//  Create by Shiyang Huang
+//  POLY ID: 0527732
+
+#import "XYZMyScene.h"
+
+@interface XYZMyScene ()
+
+@property SKShapeNode *mySquare1;
+@property SKSpriteNode *mySquare2;
+@property SKSpriteNode *mySquare3;
+@property SKSpriteNode *mySquare4;
+@property SKSpriteNode *mySquare5;
+@property SKSpriteNode *mySquare6;
+@property SKSpriteNode *mySquare7;
+@property SKSpriteNode *mySquare8;
+@property SKShapeNode *mySquare0;
+@property SKPhysicsJointLimit *myRopeJoint1;
+@property SKPhysicsJointLimit *myRopeJoint2;
+@property SKPhysicsJointLimit *myRopeJoint3;
+@property SKPhysicsJointSpring *myRopeJoint4;
+@property SKPhysicsJointSpring *myRopeJoint5;
+@property SKPhysicsJointPin *myRopeJoint6;
+@property SKPhysicsJointPin *myRopeJoint7;
+
+@end
+
+@implementation XYZMyScene
+
+- (void)spawnJoint
+{
+    self.myRopeJoint1 = [SKPhysicsJointLimit jointWithBodyA:self.mySquare1.physicsBody
+                                                     bodyB:self.mySquare2.physicsBody
+                                                   anchorA:self.mySquare1.position
+                                                   anchorB:self.mySquare2.position];
+    [self.physicsWorld addJoint: self.myRopeJoint1];
+    
+    self.myRopeJoint2 = [SKPhysicsJointLimit jointWithBodyA:self.mySquare2.physicsBody
+                                                      bodyB:self.mySquare3.physicsBody
+                                                    anchorA:self.mySquare2.position
+                                                    anchorB:self.mySquare3.position];
+    [self.physicsWorld addJoint: self.myRopeJoint2];
+    
+    self.myRopeJoint3 = [SKPhysicsJointLimit jointWithBodyA:self.mySquare3.physicsBody
+                                                      bodyB:self.mySquare4.physicsBody
+                                                    anchorA:self.mySquare3.position
+                                                    anchorB:self.mySquare4.position];
+    [self.physicsWorld addJoint: self.myRopeJoint3];
+    
+    self.myRopeJoint4 = [SKPhysicsJointSpring jointWithBodyA:self.mySquare1.physicsBody bodyB:self.mySquare5.physicsBody anchorA:self.mySquare1.position anchorB:self.mySquare5.position];
+    [self.physicsWorld addJoint: self.myRopeJoint4];
+    
+    self.myRopeJoint5 = [SKPhysicsJointSpring jointWithBodyA:self.mySquare1.physicsBody bodyB:self.mySquare6.physicsBody anchorA:self.mySquare1.position anchorB:self.mySquare6.position];
+    [self.physicsWorld addJoint: self.myRopeJoint5];
+    
+    self.myRopeJoint6 = [SKPhysicsJointPin jointWithBodyA:self.mySquare4.physicsBody bodyB:self.mySquare7.physicsBody anchor:self.mySquare7.position];
+    [self.physicsWorld addJoint: self.myRopeJoint6];
+    
+    self.myRopeJoint7 = [SKPhysicsJointPin jointWithBodyA:self.mySquare4.physicsBody bodyB:self.mySquare8.physicsBody anchor:self.mySquare8.position];
+    [self.physicsWorld addJoint: self.myRopeJoint7];
+
+    
+}
+
+- (void)spawnSquares
+{
+    /*
+    self.mySquare1 = [SKSpriteNode spriteNodeWithColor:[SKColor redColor]
+                                                  size:CGSizeMake(50, 50)];
+    [self.mySquare1 setPosition:CGPointMake(320, 200)];
+    self.mySquare1.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.mySquare1.size];
+    */
+    
+    _mySquare1 =[[SKShapeNode alloc]init];
+    CGMutablePathRef myPath = CGPathCreateMutable();
+    CGPathAddArc(myPath, NULL, 0, 0, 30, 0, M_PI*2, YES);
+    _mySquare1.path = myPath;
+    _mySquare1.fillColor = [UIColor redColor];
+    _mySquare1.position = CGPointMake(320,200);
+    [_mySquare1 setStrokeColor:[UIColor orangeColor]];
+    _mySquare1.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:30];
+    [_mySquare1.physicsBody setRestitution:1.0];
+    //[self addChild:_mySquare1];
+    
+    [self addChild:self.mySquare1];
+    self.mySquare2 = [SKSpriteNode spriteNodeWithColor:[SKColor orangeColor]
+                                                  size:CGSizeMake(30, 30)];
+    [self.mySquare2 setPosition:CGPointMake(250, 200)];
+    self.mySquare2.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.mySquare2.size];
+    [self addChild:self.mySquare2];
+    self.mySquare3 = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor]
+                                                  size:CGSizeMake(20, 20)];
+    [self.mySquare3 setPosition:CGPointMake(200, 200)];
+    self.mySquare3.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.mySquare3.size];
+    [self addChild:self.mySquare3];
+    self.mySquare4 = [SKSpriteNode spriteNodeWithColor:[SKColor greenColor]
+                                                  size:CGSizeMake(40, 40)];
+    [self.mySquare4 setPosition:CGPointMake(150, 200)];
+    self.mySquare4.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.mySquare4.size];
+    [self addChild:self.mySquare4];
+    self.mySquare5 = [SKSpriteNode spriteNodeWithColor:[SKColor blueColor]
+                                                  size:CGSizeMake(50, 50)];
+    [self.mySquare5 setPosition:CGPointMake(250, 150)];
+    self.mySquare5.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.mySquare5.size];
+    [self addChild:self.mySquare5];
+    self.mySquare6 = [SKSpriteNode spriteNodeWithColor:[SKColor blueColor]
+                                                  size:CGSizeMake(50, 50)];
+    [self.mySquare6 setPosition:CGPointMake(250, 250)];
+    self.mySquare6.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.mySquare6.size];
+    [self addChild:self.mySquare6];
+    self.mySquare7 = [SKSpriteNode spriteNodeWithColor:[SKColor brownColor]
+                                                  size:CGSizeMake(55, 55)];
+    [self.mySquare7 setPosition:CGPointMake(100, 250)];
+    self.mySquare7.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.mySquare7.size];
+    [self addChild:self.mySquare7];
+    self.mySquare8 = [SKSpriteNode spriteNodeWithColor:[SKColor brownColor]
+                                                  size:CGSizeMake(55, 55)];
+    [self.mySquare8 setPosition:CGPointMake(100, 150)];
+    self.mySquare8.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.mySquare8.size];
+    [self addChild:self.mySquare8];
+    
+    [self addCircleToPoint:CGPointMake(100, 100) ];
+}
+
+-(void)addCircleToPoint:(CGPoint)location{
+    _mySquare0 =[[SKShapeNode alloc]init];
+    CGMutablePathRef myPath = CGPathCreateMutable();
+    CGPathAddArc(myPath, NULL, 0, 0, 40, 0, M_PI*2, YES);
+    _mySquare0.path = myPath;
+    _mySquare0.fillColor = [UIColor greenColor];
+    _mySquare0.position = location;
+    [_mySquare0 setStrokeColor:[UIColor orangeColor]];
+    _mySquare0.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:40];
+    [_mySquare0.physicsBody setRestitution:1.0];
+    [self addChild:_mySquare0];
+}
+
+- (void)spawnBackgroundSettings
+{
+    self.scaleMode = SKSceneScaleModeAspectFit;
+    self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
+    [self.physicsBody setRestitution:0.0];
+}
+
+-(id)initWithSize:(CGSize)size {    
+    if (self = [super initWithSize:size])
+    {
+        /* Setup your scene here */
+        [self spawnBackgroundSettings];
+        [self spawnSquares];
+        [self spawnJoint];
+        
+    }
+    return self;
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    /* Called when a touch begins */
+    
+    for (UITouch *touch in touches) {
+        CGPoint location = [touch locationInNode:self];
+        
+        [self.mySquare1 setPosition:location];
+        [self.mySquare1.physicsBody setDynamic:NO];
+    }
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    for(UITouch *touch in touches)
+    {
+        CGPoint location = [touch locationInNode:self];
+        [self.mySquare1 setPosition:location];
+        [self.mySquare1.physicsBody setDynamic:NO];    }
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    for(UITouch *touch in touches)
+    {
+        CGPoint location = [touch locationInNode:self];
+        [self.mySquare1 setPosition:location];
+        [self.mySquare1.physicsBody setDynamic:NO];
+    }
+}
+
+-(void)update:(CFTimeInterval)currentTime {
+    /* Called before each frame is rendered */
+}
+
+@end
