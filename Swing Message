@@ -8,26 +8,103 @@
 
 #import "MyScene.h"
 
+@interface MyScene()
+
+@property SKSpriteNode *mySquare1;
+@property SKSpriteNode *mySquare2;
+@property SKSpriteNode *mySquare3;
+@property SKSpriteNode *mySquare4;
+@property SKSpriteNode *mySquare5;
+@property SKSpriteNode *mySquare6;
+@property SKSpriteNode *mySquare7;
+@property int k;
+@end
+
 @implementation MyScene
+
+
+-(void)createSquares
+{
+    self.mySquare1 = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor]
+                                                  size:CGSizeMake(self.frame.size.height/7, self.frame.size.height/7)];
+    [self.mySquare1 setPosition:CGPointMake(self.frame.size.width/2, self.frame.size.height/7*0.5)];
+    [self addChild:self.mySquare1];
+    
+    self.mySquare2 = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor]
+                                                  size:CGSizeMake(self.frame.size.height/7, self.frame.size.height/7)];
+    [self.mySquare2 setPosition:CGPointMake(self.frame.size.width/2, self.frame.size.height/7*1.5)];
+    [self addChild:self.mySquare2];
+    
+    self.mySquare3 = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor]
+                                                  size:CGSizeMake(self.frame.size.height/7, self.frame.size.height/7)];
+    [self.mySquare3 setPosition:CGPointMake(self.frame.size.width/2, self.frame.size.height/7*2.5)];
+    [self addChild:self.mySquare3];
+    
+    self.mySquare4 = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor]
+                                                  size:CGSizeMake(self.frame.size.height/7, self.frame.size.height/7)];
+    [self.mySquare4 setPosition:CGPointMake(self.frame.size.width/2, self.frame.size.height/7*3.5)];
+    [self addChild:self.mySquare4];
+    
+    self.mySquare5 = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor]
+                                                  size:CGSizeMake(self.frame.size.height/7, self.frame.size.height/7)];
+    [self.mySquare5 setPosition:CGPointMake(self.frame.size.width/2, self.frame.size.height/7*4.5)];
+    [self addChild:self.mySquare5];
+    
+    self.mySquare6 = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor]
+                                                  size:CGSizeMake(self.frame.size.height/7, self.frame.size.height/7)];
+    [self.mySquare6 setPosition:CGPointMake(self.frame.size.width/2, self.frame.size.height/7*5.5)];
+    [self addChild:self.mySquare6];
+    
+    self.mySquare7 = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor]
+                                                  size:CGSizeMake(self.frame.size.height/7, self.frame.size.height/7)];
+    [self.mySquare7 setPosition:CGPointMake(self.frame.size.width/2, self.frame.size.height/7*6.5)];
+    [self addChild:self.mySquare7];
+}
 
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
-        
+        [self createSquares];
+        [self delay];
+        NSLog(@"end");
+ 
     }
     return self;
 }
-
+-(void)delay
+{
+    if(self.k!=1 && self.k!=-1)
+    self.k=1;
+}
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     /* Called when a touch begins */
     
     for (UITouch *touch in touches) {
-    
+       
     }
 }
 
 -(void)update:(CFTimeInterval)currentTime {
-    /* Called before each frame is rendered */
+    /* Called before each frame is rendered */       while(1)
+    {
+        if(self.k==1)
+        {
+            sleep(1);
+            self.mySquare1.color = [SKColor redColor];
+            NSLog(@"1");
+            self.k*=-1;
+            return;
+        }
+        else if(self.k==-1)
+        {
+            sleep(0.5);
+            self.mySquare1.color = [SKColor blackColor];
+            NSLog(@"-1");
+            self.k*=-1;
+            return;
+        }
+        
+    }
 }
 
 @end
